@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block body %}
+    <h1>Crée un nouvel demande</h1>
+   
+
+    {{ include('demande/_form.html.twig') }}
+
+    <a href="{{ path('demande_index') }}"class="btn btn-info" style="margin-top: 10px;">retour à la liste</a>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+    <h1>Info sur categorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ categorie.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+<a href="{{ path('categorie_edit', {'id': categorie.id}) }}" class="btn btn-warning" style="margin-bottom: 10px;" >edit</a>
+
+ {{ include('categorie/_delete_form.html.twig') }}
+
+<a href="{{ path('categorie_index') }}" class="btn btn-info" style="margin-top: 10px;">retour à la liste</a>
+
+<div>
+	<a href="{{ path('add-souscategories', {'id': categorie.id}) }}">
+
+	<button type="button" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px;">Affecter une sous categorie</button>
+</a>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Title</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+       {% for categ in categorie.souscategories %}
+
+			<tr>
+				<td>{{ categ.id }}</td>
+				<td>{{ categ.title }}</td>
+				
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="3">Aucun enregistrement trouvé</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

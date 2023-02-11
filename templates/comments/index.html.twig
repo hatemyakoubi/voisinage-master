@@ -1,0 +1,53 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Comments index{% endblock %}
+
+{% block body %}
+    <h1>Listes des Commentaires</h1>
+{% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+{% endfor %}
+<div style="text-align: right; margin-bottom: 20px;">
+	<a href="{{path('demande_new')}}">
+		<button class="btn btn-success">
+
+			<i class="fas fa-plus" style="margin-right: 5px; "></i>Nouvelle Commentaire
+		</button>
+	</a>
+</div>
+
+<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">ID</th>
+                <th>Contenue</th>
+                <th>Active</th>
+                <th>Creé le</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.active ? 'Oui' : 'Non' }}</td>
+                <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('comments_show', {'id': comment.id}) }}"class="btn btn-info"><i class="far fa-eye"></i>   </a>
+                    <a href="{{ path('comments_edit', {'id': comment.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

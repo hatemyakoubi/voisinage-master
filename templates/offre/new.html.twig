@@ -1,0 +1,10 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block body %}
+    <h1>Creé un nouvel offre</h1>
+
+    {{ include('offre/_form.html.twig') }}
+
+    <a href="{{ path('offre_index') }}"class="btn btn-info" style="margin-top: 10px;">retour à la liste</a>
+{% endblock %}

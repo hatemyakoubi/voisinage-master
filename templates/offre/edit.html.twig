@@ -1,0 +1,16 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block body %}
+	<h1>Modifier Offre</h1>
+
+	
+
+		{{ include('offre/_form.html.twig', {'button_label': 'Modifier'}) }}
+<div class="row" style="margin-top: 15px;">
+		<a href="{{ path('offre_index') }}" class="btn btn-info" style="margin-right: 15px;">retour à la liste</a>
+
+
+		{{ include('offre/_delete_form.html.twig') }}
+	{% endblock %}
+

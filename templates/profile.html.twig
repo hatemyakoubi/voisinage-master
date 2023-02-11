@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Voisinage |
+			{{controller_name}}</title>
+
+		<!--icon -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/525icons/2.6.0/525icons.min.css">
+
+		<!--CSS -->
+        <link rel="stylesheet" href="{{asset('stylepersonaliser/profile.css')}}">
+
+		<!--Bootstrap CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+		<link
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<!-- font -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link
+		href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+		<!--code jquery -->
+		<script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!--Bootstrap JS -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<!-- OwlCarouse js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+	</head>
+	<body>
+		<!-- LOADER -->
+		<div class="main">
+			<div class="text">
+				Voisinage
+			</div>
+			<div class="title">
+				Loading
+			</div>
+			<div class="percent">100%</div>
+			<div class="bar">
+				<div class="progress"></div>
+			</div>
+		</div>
+		<!-- END LOADER -->
+		<header class="profile-page">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand" href="{{path('home')}}">
+					<span>V</span>oi<span>s</span>in<span>a</span>ge</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav mx-auto">
+						<li class="nav-item ">
+							<a class="nav-link" href="{{path('user_profil', {'id': app.user.id}) }}">
+								Profile
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('mes_demande',{'id':user.id})}}">
+								Mes demandes</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('mes_offre',{'id':user.id})}}">
+								Mes offres
+							</a>
+						</li>
+						
+					</ul>
+					
+					
+				</div>
+				<div class="nav-item dropdown">
+					<a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								{% if user.userImage is null   %}
+								
+								<img src="{{asset('uploads/images_users/imageprofil/userprofile.png')}}" alt="Image de profile"/>
+								{% else %}
+							
+								<img src="{{ vich_uploader_asset(user.userImage, 'imageFile')|imagine_filter('imageusers') }}" alt="Image de profile"/>
+
+													
+								{% endif %}
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{path('edit_profile', {'id': user.id})}}">
+							{{user.username | capitalize }}
+							{{user.lastname | capitalize }}
+							<small id="emailHelp" class="form-text text-muted">Modifier mon profil</small>
+						</a>
+						
+						<div class="dropdown-divider"></div>					
+						
+						<a class="dropdown-item" href="{{path('app_forgotten_password')}}">Réinitialiser mot de passe</a>
+						
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{path('app_logout')}}">	Se déconnecter</a>
+						
+					</div>
+				</div>
+				</div>
+				
+			</nav>
+		</header>
+		{% block body %}
+			<div class="container emp-profile">
+			  {% for message in app.flashes('success') %}
+					<div class="alert alert-primary">
+						{{ message }}
+					</div>
+		{% endfor %}
+				<div class="row">
+					<div class="col-md-4">
+
+						<div class="profile-img">
+							{% if user.userImage is null   %}
+								<img src="{{asset('uploads/images_users/imageprofil/userprofile.png')}}" alt="Image de profile"/>
+							{% else %}
+							
+								<img src="{{ vich_uploader_asset(user.userImage, 'imageFile')|imagine_filter('imageusers') }}" alt="Image de profile"/>
+
+									
+					
+							{% endif %}
+					
+							
+								<a href="{{path('edit_image', {'id':user.id})}}"><i class="fas fa-pencil-alt" style="position: absolute; right: 70px;padding:5px 15px;"></i></a>
+
+							
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="profile-head">
+							<h5>
+								{{user.username | upper}}
+							</h5>
+							<div class="address">
+								<i class="fas fa-map-marker-alt"></i>
+								<p class="state">&nbsp;{{user.adress| upper}},
+								</p>
+								<span class="country">&nbsp;TUNIS</span>
+							</div>
+							
+							<ul class="nav nav-tabs" id="myTab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Galerie de photos</a>
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="profile-work">
+			
+
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="tab-content profile-tab" id="myTabContent">
+							<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+								<div class="row">
+
+										{% for offre in user.offres %}
+													
+											{% for image in offre.images %}
+												<div class="col-4">
+												<img src="{{ asset('/uploads/images_offres/'~image.name) }}" style="width: 150px; height: 150px;">
+												</div>
+											{% endfor %}
+											
+										{% endfor %}		
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+	
+		</div>
+		{% endblock %}
+		
+	
+		<footer>
+			<div class="footer-container">
+				<div class="footer-col-1">
+					<h3>
+						<span>V</span>oi<span>s</span>in<span>a</span>ge</h3>
+					<ul class="socials">
+						<li>
+							<a href="#">
+								<i class="fab fa-facebook-square"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fab fa-linkedin"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fab fa-twitter-square"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fab fa-google-plus-square"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<hr>
+				<div class="footer-bottom">
+					<p class="Copyright">
+						Copyright
+						<strong class="copy">&copy;</strong>
+						Tous les droits sont réservés | Voisinage
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// -----------------------loading-----------------------//
+var percent = document.querySelector('.percent');
+var prog = document.querySelector('.progress');
+var count = 4;
+var per = 16;
+var loading = setInterval(animate, 50);
+function animate() {
+if (count == 100 && per == 400) {
+percent.classList.add(".text-blink");
+clearInterval(loading);
+} else {
+per = per + 4;
+count = count + 1;
+prog.style.width = per + 'px';
+percent.textContent = count + '%'
+}
+}
+setTimeout(function () {
+$('.main').fadeToggle();
+}, 5000);
+
+// --------------------stars---------------------//
+const stars = document.querySelectorAll(".star");
+const rating = document.querySelector(".rating");
+
+for (let i = 0; i < stars.length; i++) {
+stars[i].starValue = (i + 1);
+["mouseover", "mouseout", "click"].forEach(function (e) {
+stars[i].addEventListener(e, starRate);
+});
+};
+
+function starRate(e) {
+let type = e.type;
+let starValue = this.starValue;
+if (type === "click") {
+if (starValue > 1) {
+rating.innerHTML = "You rated  this " + starValue + " stars";
+};
+};
+stars.forEach(function (ele, ind) {
+if (type === "click") {
+if (ind < starValue) {
+ele.classList.add("fix");
+} else {
+ele.classList.remove("fix");
+}
+};
+if (type === "mouseover") {
+if (ind < starValue) {
+ele.classList.add("over");
+} else {
+ele.classList.remove("over");
+}
+};
+if (type === "mouseout") {
+ele.classList.remove("over");
+};
+});
+};
+
+// --------------------owlcarsouel---------------------//
+$(document).ready(function () {
+$('.owl-carousel').owlCarousel({loop: true, autoplay: true, autoplayTimeout: 3000, autoplayHoverPause: true});
+});
+		</script>
+
+<!-- code ajax pour supprimer une image d'offre -->
+	<script>
+
+		window.onload = () => {
+    // Gestion des boutons "Supprimer"
+    let links = document.querySelectorAll("[data-delete]")
+    
+    // On boucle sur links
+    for(link of links){
+        // On écoute le clic
+        link.addEventListener("click", function(e){
+            // On empêche la navigation
+            e.preventDefault()
+
+            // On demande confirmation
+            if(confirm("Voulez-vous supprimer cette image ?")){
+                // On envoie une requête Ajax vers le href du lien avec la méthode DELETE
+                fetch(this.getAttribute("href"), {
+                    method: "DELETE",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({"_token": this.dataset.token})
+                }).then(
+                    // On récupère la réponse en JSON
+                    response => response.json()
+                ).then(data => {
+                    if(data.success)
+                        this.parentElement.remove()
+                    else
+                        alert(data.error)
+                }).catch(e => alert(e))
+            }
+        })
+    }
+}
+
+
+	</script>
+	</body>
+</html>

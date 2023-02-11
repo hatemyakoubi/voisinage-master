@@ -1,0 +1,15 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Modifier Sous Categorie{% endblock %}
+
+{% block body %}
+    <h1>Modifier SousCategorie</h1>
+
+    {{ include('sous_categorie/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    {{ include('sous_categorie/_delete_form.html.twig') }}
+    
+<a href="{{ path('sous_categorie_index') }}" class=" btn btn-info" style=" margin-top: 10px; margin-bottom: 10px;">retour à la liste</a>
+
+
+{% endblock %}

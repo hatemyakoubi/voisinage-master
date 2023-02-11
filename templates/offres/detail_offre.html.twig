@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<title>Voisinage |
+			{{controller_name}}</title>
+		<meta charset="utf-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!--icon -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link
+		rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+		<!-- CSS only -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="{{ asset('css/open-iconic-bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/animate.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/magnific-popup.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('css/aos.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('css/ionicons.min.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css')}}">
+
+
+		<link rel="stylesheet" href="{{ asset('css/flaticon.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/icomoon.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/style.css')}}">
+
+
+	</head>
+
+	<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	<div class="container-fluid px-md-4	">
+		<a class="navbar-brand" href="{{path('home')}}">
+			<span style="color:#81ecec;">V</span>oi<span style="color:#81ecec;">s</span>in<span style="color:#81ecec;">a</span>ge</a>
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="oi oi-menu"></span>
+		Menu
+	</button>
+
+	<div class="collapse navbar-collapse" id="ftco-nav">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+				<a href="{{path('home')}}" class="nav-link">Acceuil</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('offres')}}" class="nav-link">Offres</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('demande')}}" class="nav-link">Demandes</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('candidat')}}" class="nav-link">Candidats</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('contact')}}" class="nav-link">Contact</a>
+			</li>
+			{% if not app.user %}
+
+				<li class="nav-item">
+					<a href="{{path('app_login')}}" class="nav-link">Connexion</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{path('register')}}" class="nav-link">S'inscrire</a>
+				</li>
+			{% else %}
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+							<i class="fal fa-user-circle"></i>
+						</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{path('user_profil', {'id': app.user.id}) }}">Profile</a>
+							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnecté</a>
+						</div>
+					</li>
+				</ul>
+
+				<li class="nav-item cta mr-md-1">
+					<a href="{{path('publier_demande')}}" class="nav-link">Publier un demande</a>
+				</li>
+				<li class="nav-item cta cta-colored">
+					<a href="{{path('publier_offre')}}" class="nav-link">Publier un offre</a>
+				</li>
+			{% endif %}
+
+
+		</ul>
+	</div>
+	</div>
+</nav><!-- END nav -->
+
+
+		<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row no-gutters slider-text align-items-end justify-content-start">
+					<div class="col-md-12 ftco-animate text-center mb-5">
+						<p class="breadcrumbs mb-0">
+							<span class="mr-3">
+								<a href="{{path('home')}}">Acceuil
+									<i class="ion-ios-arrow-forward"></i>
+								</a>
+							</span>
+							<span>Offres</span>
+						</p>
+						<h1 class="mb-3 bread">Détaille offre</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="ftco-section ftco-candidates ftco-candidates-2 bg-light">
+			<div class="container">
+				{% for message in app.flashes('message') %}
+					<div class="alert alert-info" role="alert">{{ message }}</div>
+				{% endfor %}
+				<div class="row">
+					<div class="col-lg-8 pr-lg-4">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="team d-md-flex p-4 bg-white">
+									{% if offre.user.userImage is null  %}
+										<img src="{{asset('uploads/images_users/imageprofil/userprofile.png')}}" class="img" alt="Image de profile"/>
+									{% else %}
+
+											<img src="{{ vich_uploader_asset(offre.user.userImage, 'imageFile')|imagine_filter('imageusers') }}" class="img" alt="Image de profile"/>
+
+										
+									{% endif %}
+
+									<div class="text pl-md-4">
+										<span class="location mb-0">{{offre.user.username |upper}} {{offre.user.lastname| upper}} </span>
+										<h2>
+										<span class="position">{{offre.titre}}</span></h2>
+										<p class="mb-2">{{offre.description}}.</p>
+										<span class="seen">
+												{{offre.user.adress}} ,</span>
+										<span class="seen">publié le 
+											{{offre.createdAt | date("d/m/Y")}}</span>
+										{#<p>
+											
+											<span class="seen">Télèphone :
+												{{offre.user.phone}}</span>
+										</p>#}
+									</div>
+									 
+								</div>
+							</div>
+
+						</div>
+						<div class="row">
+						{% for image in offre.images %}
+							<div class="col-4">
+
+								<img src="{{ asset('/uploads/images_offres/'~image.name) }}" alt="" width="150">
+
+							{# On ajoute un lien permettant de supprimer une image (sera géré en Ajax) 
+									<a href="{{ path('annonces_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>#}
+							
+							</div>
+						{% endfor %}
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<section class="ftco-section ftco-degree-bg">
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-md-8 ftco-animate">
+
+						<div class="pt-5 mt-5">
+							<h3 class="mb-5">{{offre.commentOffres|length}}
+								Commentaires</h3>
+							<ul class="comment-list">
+
+								{% for comment  in offre.commentOffres %}
+                                       
+									{% if comment.parent == null %}
+										<li class="comment">
+											<div class="vcard bio">
+												
+														 {% if comment.user.userImage is null %}
+											                           
+											                             <img src="{{asset('uploads/images_users/imageprofil/userprofile.png')}}" alt="Image de profile">
+											                           {% else %}
+											                              
+											                            <img src="{{ vich_uploader_asset(comment.user.userImage, 'imageFile')|imagine_filter('imageusers') }}" alt="Image de profile"/>
+											
+											                               
+											                           {% endif %}
+
+											</div>
+											<div class="comment-body">
+												<h3>{{comment.user.lastname|upper}}
+													{{comment.user.username|upper}}</h3>
+												<div class="meta">publié le
+													{{comment.createdAt|date("d/m/y H:i")}}</div>
+												<p>{{comment.content}}</p>
+												<p>
+													<a href="#ajout-commentaire" class="reply" data-reply data-id="{{comment.id}}">Répondre</a>
+												</p>
+											</div>
+											{# on affiche les réponse de commentaire#}
+											{% for reply in comment.replies %}
+												<ul class="children">
+													<li class="comment">
+														<div class="vcard bio">
+															{% if reply.user.userImage is null %}
+											                           
+											                             <img src="{{asset('uploads/images_users/imageprofil/userprofile.png')}}" alt="Image de profile">
+											                           {% else %}
+											                              
+											                            <img src="{{ vich_uploader_asset(reply.user.userImage, 'imageFile')|imagine_filter('imageusers') }}" alt="Image de profile"/>
+											
+											                               
+											                           {% endif %}
+
+														</div>
+														<div class="comment-body">
+															<h3>{{reply.user.lastname|upper}}
+																{{reply.user.username|upper}}</h3>
+															<div class="meta">Réponse publiée le
+																{{reply.createdAt|date("d/m/Y H:i") }}
+															</div>
+															<p>{{reply.content}}</p>
+
+														</div>
+													</li>
+												</ul>
+
+											{% endfor %}
+										</li>
+									{% endif %}
+								{% endfor %}
+
+							</ul>
+							<!-- END comment-list -->
+
+							<div class="comment-form-wrap pt-5" id="ajout-commentaire">
+								<h3 class="mb-5">Laissez un commentaire</h3>
+								{{form(commentForm)}}
+								</div>
+							</div>
+
+						</div>
+						<!-- .col-md-8 -->
+
+
+					</div>
+				</div>
+			</section>
+			<!-- .section -->
+
+		
+
+
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-md">
+				<div class="ftco-footer-widget mb-4">
+					<h2 class="ftco-heading-2">Voisinage</h2>
+					<p>Outil pour renforcer vote réseau professionnel ou amical, 
+						échanger des services est enfin devenu plus facile,et
+						favorise l'entraide et les échanges de services entre voisins.</p>
+					<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+						<li class="ftco-animate">
+							<a href="#">
+								<span class="icon-twitter"></span>
+							</a>
+						</li>
+						<li class="ftco-animate">
+							<a href="#">
+								<span class="icon-facebook"></span>
+							</a>
+						</li>
+						<li class="ftco-animate">
+							<a href="#">
+								<span class="icon-instagram"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="ftco-footer-widget mb-4">
+					<h2 class="ftco-heading-2">Emplois</h2>
+					<ul class="list-unstyled">
+						<li>
+							<a href="{{path('publier_offre')}}" class="pb-1 d-block">publier une offre de travail</a>
+						</li>
+						<li>
+							<a href="{{path('publier_demande')}}" class="pb-1 d-block">publier une demande de travail</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="ftco-footer-widget mb-4 ml-md-4">
+					<h2 class="ftco-heading-2">Candidats</h2>
+					<ul class="list-unstyled">
+						<li>
+							<a href="{{path('candidat')}}" class="pb-1 d-block">Parcourir les Candidats</a>
+						</li>
+						<li>
+							<a href="{{path('demande')}}" class="pb-1 d-block">Parcourir les demandes</a>
+						</li>
+						<li>
+							<a href="{{path('offres')}}" class="pb-1 d-block">Parcourir les Offres</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="ftco-footer-widget mb-4 ml-md-4">
+					<h2 class="ftco-heading-2">Compte</h2>
+					<ul class="list-unstyled">
+
+						<li>
+							<a href="{{path('register')}}" class="pb-1 d-block">S'inscrire</a>
+						</li>
+						<li>
+							<a href="{{path('app_login')}}" class="pb-1 d-block">Se connecté</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="ftco-footer-widget mb-4">
+					<h2 class="ftco-heading-2">Vous avez une question ?</h2>
+					<div class="block-23 mb-3">
+						<ul>
+							<li>
+								<span class="icon icon-map-marker"></span>
+								<span class="text">Campus Universitaire Sidi Ahmed Zarrouk - 2112 GAFSA, TUNISIE</span>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon icon-phone"></span>
+									<span class="text">+216 000 00 000</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon icon-envelope"></span>
+									<span class="text">voisinage.web@gmail.com</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+
+				<p>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;<script>
+						document.write(new Date().getFullYear());
+					</script>
+					Tous droits réservés | Ce site est fait avec
+					<i class="icon-heart text-danger" aria-hidden="true"></i>
+					par
+					<a href="{{path('home')}}" target="_blank">Voisinage</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+
+			<!-- loader -->
+			<div id="ftco-loader" class="show fullscreen">
+				<svg class="circular" width="48px" height="48px">
+					<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+					<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+				</svg>
+			</div>
+
+
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+			<script src="{{ asset('js/jquery.min.js')}}"></script>
+			<script src="{{ asset('js/jquery-migrate-3.0.1.min.js')}}"></script>
+			<script src="{{ asset('js/popper.min.js')}}"></script>
+			<script src="{{ asset('js/bootstrap.min.js')}}"></script>
+			<script src="{{ asset('js/jquery.easing.1.3.js')}}"></script>
+			<script src="{{ asset('js/jquery.waypoints.min.js')}}"></script>
+			<script src="{{ asset('js/jquery.stellar.min.js')}}"></script>
+			<script src="{{ asset('js/owl.carousel.min.js')}}"></script>
+			<script src="{{ asset('js/jquery.magnific-popup.min.js')}}"></script>
+			<script src="{{ asset('js/aos.js')}}"></script>
+			<script src="{{ asset('js/jquery.animateNumber.min.js')}}"></script>
+			<script src="{{ asset('js/scrollax.min.js')}}"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+			<script src="{{ asset('js/google-map.js')}}"></script>
+			<script src="{{ asset('js/main.js')}}"></script>
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+			<script src="{{ asset('js/commentOffre.js')}}"></script>
+		</body>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'admin.html.twig' %}
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <h1>Listes des Categories </h1>
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{{path('categorie_new')}}">
+<button class="btn btn-success">
+
+	<i class="fas fa-plus" style="margin-right: 5px; "></i>Nouvelle Categorie</button>
+</a>
+</div>
+
+    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">Id</th>
+                <th data-sortable="true" data-field="nom">Nom catégorie</th>
+               {#<th>Sous categorie</th>#} 
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.nom }}</td>
+                    {# <td>
+                        {% for catg in categorie.souscategories %}
+                    
+                        <ul>
+                        <li>
+                            {{ catg.title }}
+                        </li>
+                        </ul>
+                    
+                        {% endfor %}
+                         </td>    #} 
+                    
+                <td>
+                    <a href="{{ path('categorie_show', {'id': categorie.id}) }}" class="btn btn-info"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+  {#<a href="{{ path('categorie_new') }}">Create new</a>#}  
+{% endblock %}

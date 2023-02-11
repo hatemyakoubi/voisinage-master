@@ -1,0 +1,16 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit Comments{% endblock %}
+
+{% block body %}
+    <h1>Edit Comments</h1>
+
+    {{ include('comments/_form.html.twig', {'button_label': 'Modifier'}) }}
+<div class="row" style="margin-top: 15px;">
+
+
+    <a href="{{ path('comments_index') }}"class="btn btn-info" style="margin-right: 15px;">retour à la liste</a>
+
+    {{ include('comments/_delete_form.html.twig') }}
+</div>
+{% endblock %}

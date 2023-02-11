@@ -1,0 +1,53 @@
+{% extends "profile.html.twig" %}
+
+
+{% block body %}
+	<div class="container emp-profile">
+		<h1>Vos offres</h1>
+       
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-primary">
+				{{ message }}
+			</div>
+		{% endfor %}
+           
+               
+		
+		{% for offre in user.offres %}
+			<div class=" owl-carsouel slider">
+				<div class="card card-1 item" style="margin-top: 10px;">
+					<div class="content ">
+						<div classe="name">
+							<h6 class="fs-6">Publié le
+								{{offre.createdAt| date("d/m/Y")}}</h6>
+							<span class="sub-tittle" style="color: #227093;">{{offre.titre}}</span>
+						</div>
+						<p class="card-body">{{offre.description}}</p>
+						<small class="small">Activé :{{offre.publier? 'OUI': 'NON'}}</small>
+						<div style="float: right;">
+							<a href="{{path('supprime_user_offre', {'id':offre.id})}}">
+								<button class="btn btn-danger">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</a>
+							<a href="{{path('edit_user_offre', {'id':offre.id})}}">
+								<button type="button" class="btn btn-warning">
+									<i class="fal fa-edit"></i>
+								</button>
+							</a>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		{% endfor %}
+        <div style="float: right; margin: 20px;">
+            <p><a href="{{path('publier_offre')}}">Vous pouvez publier une offre </a>
+            <p>
+        </div>
+	</div>
+{% endblock %}
+

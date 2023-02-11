@@ -1,0 +1,27 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Modifier Utilisateur</h1>
+
+{{ form_start(form) }}
+{{ form_row(form.username) }}
+{{ form_row(form.lastname) }}
+{{ form_row(form.email) }}
+{{ form_row(form.enabled) }}
+{{ form_row(form.roles) }}
+{{ form_row(form.phone) }}
+<button class="btn btn-success">{{ button_label|default('Modifier') }}</button>
+{{ form_end(form) }}
+
+
+    <div class="row" style="margin-top: 15px;">
+    
+        <a href="{{ path('user_index') }}"><button class="btn btn-warning" style="margin-right: 15px;">Retour à la
+                liste</button></a>
+    
+    
+        {{ include('user/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

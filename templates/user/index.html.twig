@@ -1,0 +1,90 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Listes des utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Listes des utilisateurs</h1>
+
+{% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+{% endfor %}
+
+
+<div style="text-align: right; margin-bottom: 20px;">
+	<a href="{{path('user_new')}}">
+		<button class="btn btn-success">
+
+			<i class="fas fa-plus" style="margin-right: 5px; "></i>Nouvelle utilisateur
+        </button>
+	</a>
+</div>
+
+    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">ID</th>
+                <th>Email</th>
+                {#<th>Password</th>#}
+                <th>Nom</th>
+                {#<th>Token</th>#}
+                <th>Prenom</th>
+                
+                <th>Télèphone</th>
+                <th>Addresse</th>
+                {#<th data-sortable="true" data-field="createdat">CreatedAt</th>#}
+                <th>Activé</th>
+                <th>Roles</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+               {# <td>{{ user.password }}</td>#}
+                <td>{{ user.username }}</td>
+                {#<td>{{ user.token }}</td>#}
+                <td>{{ user.lastname }}</td>
+                
+                <td>{{ user.phone }}</td>
+                <td>{{ user.adress }}</td>
+                {#<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>#}
+                <td>
+                
+                            {% if user.enabled == "1" %}
+                               Oui
+                            {% else %}
+                                Non
+                            
+                            {% endif %}
+                        
+                </td>
+                {#<td>{{ user.roles ? user.roles|json_encode : '' }}</td>#}
+                <td>
+                     {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                Utilisateur
+                            
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Administrateur
+                            {% endif %}
+                        {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}"class="btn btn-info"><i class="far fa-eye"></i>   </a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}"class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+               <td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   {#<a href="{{ path('user_new') }}">Create new</a>#} 
+{% endblock %}

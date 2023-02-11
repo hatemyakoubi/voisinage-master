@@ -1,0 +1,62 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Demande{% endblock %}
+
+{% block body %}
+    <h1>Demande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ demande.description }}</td>
+            </tr>
+            <tr>
+                <th>Budget</th>
+                <td>{{ demande.budget }}</td>
+            </tr>
+           {# <tr>
+                <th>Lieu</th>
+                <td>{{ demande.lieu }}</td>
+            </tr>#}
+            <tr>
+                <th>Publier</th>
+                <td>{{ demande.publier ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ demande.createdAt ? demande.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+   <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Commentaire</th>
+                <th>Utilisateur</th>
+            </tr>
+            {% for comment in demande.comments %}
+                <tr>
+                        <td>{{comment.id}}</td>
+                        <td>{{comment.content}}</td>
+                        <td>{{comment.user.email}}</td>
+                </tr>
+            {% else %}
+                <tr>
+               <td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+            {% endfor %}
+   </table>
+<div class="row" style="margin-top: 15px;">
+
+    <a href="{{ path('demande_edit', {'id': demande.id}) }}"><button class="btn btn-success"style="margin-right: 15px;">Modifier</button></a>
+    <a href="{{ path('demande_index') }}"class="btn btn-info" style="margin-right: 15px;">retour à la liste</a>
+
+
+    {{ include('demande/_delete_form.html.twig') }}
+</div>
+{% endblock %}

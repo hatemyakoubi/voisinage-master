@@ -1,0 +1,34 @@
+{% extends "profile.html.twig" %}
+
+
+{% block body %}
+	<div class="container emp-profile">
+		<h1>Modifer offres</h1>
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-primary">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+
+		{{form_start(form)}}
+		{{form_widget(form)}}
+		{{form_end(form)}}
+		<div class="row">
+			{% for image in offre.images %}
+				<div class="col" style="margin-top: 20px;">
+					<div>
+					<img src="{{ asset('/uploads/images_offres/'~image.name) }}" style="width: 250px; height: 200px;" >
+					{# On ajoute un lien permettant de supprimer une image (sera géré en Ajax) #}
+					<a href="{{ path('offre_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}" ><i class="fas fa-times" style="position: absolute; left: 5px;padding:5px 15px;"></i></a>
+					</div>
+
+				</div>
+			{% endfor %}
+
+		</div>
+
+
+	</div>
+{% endblock %}
+

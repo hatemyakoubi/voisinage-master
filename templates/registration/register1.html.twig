@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+   <title>Voisinage |
+			{{controller_name}}</title>
+    <link rel="stylesheet" href="{{asset('stylepersonaliser/inscription.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/525icons/2.6.0/525icons.min.css">
+    <!--intl-tel-input plugin-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <!--Bootstrap css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" >
+     <!--google font css-->
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <!--Bootstrap js-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+     
+</head>
+
+<body>
+    <header>
+        <div class="side-bar">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a href="{{path('home')}}" class="navbar-brand"><span>V</span>oi<span>s</span>in<span>a</span>ge</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+   <div class="container">
+       <div class="title"> Inscription </div>
+             {% if form_errors(form.password) %}
+                <div class="alert alert-secondary">
+
+                  {{ form_errors(form.password) }}
+                </div>
+            
+            {% endif %}
+
+
+        {{ form_start(form)}}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                   {#<input type="text" class="form-control" placeholder="Prénom" autofocus required>#} 
+                    {{form_widget(form.username, {'attr':{'placeholder': 'Prénom'}})}}
+                </div>
+                <div class="form-group col-md-6">
+                   {#<input type="text" class="form-control" placeholder="Nom" required>#} 
+                        {{form_widget(form.lastname, {'attr':{'placeholder': 'Nom'}})}}
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {#<input  id="adresse" type="text" class="adr form-control" placeholder="Adresse" required><i class="fa fa-map-marker" aria-hidden="true"></i>#}
+                            {{form_widget(form.adress, {'attr':{'placeholder': 'Adresse'}})}}
+
+                    
+                </div>
+                <div class="form-group col-md-6">
+                    {#<input type="email" class="form-control" placeholder="Adresse e-mail" required>#}
+                    {{form_widget(form.email, {'attr':{'placeholder': 'Email'}})}}
+
+                </div>
+                   
+
+            </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-6" name="user-pw">
+                    {#<input type="password" class="form-control" name="user-pw" id="user-pw" placeholder="Mot de passe" required>#}
+                        {{form_widget(form.password, {'attr':{'placeholder': 'Mode de passe', 'id': 'registration_password' }}  )}}
+
+
+                    <span class="eye" onclick="myFunction()">
+                        <i id="hide1" class="fa fa-eye"></i>
+                        <i id="hide2" class="fa fa-eye-slash" title="Afficher votre Mot de Passe"></i>
+                    </span>
+                </div>
+              <div class="form-group col-md-6">
+                   {#<input type="password" class="form-control" placeholder="Confirmer votre mot de passe" required>#}
+                      {{form_widget(form.confirm_password, {'attr':{'placeholder': 'Confirmer Mode de passe'}})}}
+
+
+                </div>
+            </div>
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {#<input id="phone" type="tel" name="phone" class="form-control" placeholder="Numéro de télèphone"  required ><img src="tn-flag.png">#}
+                        {{form_widget(form.phone, {'attr':{'placeholder': 'Numéro de télèphone'}})}}
+                       
+                    </div>
+            </div>
+           
+            <div class="form-check">
+                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" required> 
+                    J'accepte les conditions générale d'utilisation
+            </div>
+            <br>
+            <div class="center">
+                    <button class="btn-hover color-7" type="submit">S'inscrire</button>
+            </div>
+            <div>
+                <div class="compte">
+                    <label> Vous avez déjà un compte? </label><a href="{{path('app_login')}}" class="link" title="identifier">  S'identifier </a>
+                 </div>
+            </div>
+            {{ form_end(form) }}
+
+   
+    </div>
+   </div>
+
+   <script>
+    function myFunction() {
+      var x = document.getElementById ("registration_password");
+      var y = document.getElementById ("hide1");
+      var z = document.getElementById ("hide2");
+
+      if (x.type === 'password'){
+        x.type = "text";
+        y.style.display = "block";
+        z.style.display = "none";
+      }
+      else{
+        x.type = "password";
+        y.style.display = "none";
+        z.style.display = "block";
+      }
+    }
+  </script> 
+</body>
+</html>

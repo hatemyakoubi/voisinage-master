@@ -1,0 +1,47 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block body %}
+    <h1>Listes des offres</h1>
+
+{% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+{% endfor %}
+
+
+    <table class="table"data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead>
+            <tr>
+                 <th data-sortable="true" data-field="id">ID</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Creé le</th>
+                <th>Publier</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre in offres %}
+            <tr>
+                <td>{{ offre.id }}</td>
+                <td>{{ offre.titre }}</td>
+                <td>{{ offre.description }}</td>
+                <td>{{ offre.createdAt ? offre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ offre.publier ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="{{ path('offre_show', {'id': offre.id}) }}"class="btn btn-info"><i class="far fa-eye"></i>   </a>
+                    <a href="{{ path('offre_edit', {'id': offre.id}) }}"class="btn btn-warning"><i class="fas fa-edit"></i></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+{% endblock %}

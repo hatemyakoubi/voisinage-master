@@ -1,0 +1,46 @@
+{% extends 'admin.html.twig' %}
+
+
+
+{% block body %}
+    <h1>Listes des sousCategorie </h1>
+<div style="text-align: right; margin-bottom: 20px;">
+<a href="{{path('sous_categorie_new')}}">
+
+		<button class="btn btn-success">
+
+			<i class="fas fa-plus" style="margin-right: 5px; "></i>Nouvelle Sous Categorie</button>
+	</a>
+</div>
+
+<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+
+        <thead>
+            <tr>
+                <th data-sortable="true"data-field="id">Id</th>
+                <th data-sortable="true"data-field>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sous_categorie in sous_categories %}
+            <tr>
+                <td>{{ sous_categorie.id }}</td>
+                <td>{{ sous_categorie.title}}</td>
+                <td>
+                <a href="{{ path('sous_categorie_show', {'id': sous_categorie.id}) }}"  class="btn btn-info"><i class="far fa-eye"></i></a>
+
+                <a href="{{ path('sous_categorie_edit', {'id': sous_categorie.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+               td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   {# <a href="{{ path('sous_categorie_new') }}">Create new</a>#}
+{% endblock %}

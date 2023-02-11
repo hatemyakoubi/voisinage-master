@@ -1,0 +1,61 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Demande index{% endblock %}
+
+{% block body %}
+    <h1>Listes des demandes</h1>
+
+{% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+{% endfor %}
+
+
+
+<div style="text-align: right; margin-bottom: 20px;">
+	<a href="{{path('demande_new')}}">
+		<button class="btn btn-success">
+
+			<i class="fas fa-plus" style="margin-right: 5px; "></i>Nouvelle demande
+		</button>
+	</a>
+</div>
+
+<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+
+        <thead>
+            <tr>
+                 <th data-sortable="true" data-field="id">ID</th>
+                <th>Déscription</th>
+                <th>Budget</th>
+                {#<th>Lieu</th>#}
+                <th>Publier</th>
+                <th>Creé le</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande in demandes %}
+            <tr>
+                <td>{{ demande.id }}</td>
+                <td>{{ demande.description }}</td>
+                <td>{{ demande.budget }}</td>
+                {#<td>{{ demande.lieu }}</td>#}
+                <td>{{ demande.publier ? 'Oui' : 'Non' }}</td>
+                <td>{{ demande.createdAt ? demande.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('demande_show', {'id': demande.id}) }}" class="btn btn-info"><i class="far fa-eye"></i>   </a>
+                    <a href="{{ path('demande_edit', {'id': demande.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                 <td colspan="3">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+{% endblock %}
